@@ -24,17 +24,17 @@
             }
           },
           {
-            "id": "effea41cd7a9449e",
+            "id": "0b5812558f3b3070",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Other/说明/README(old).md",
+                "file": "Other/说明/仓库文件结构.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "README(old)"
+              "title": "仓库文件结构"
             }
           }
         ],
@@ -62,6 +62,21 @@
               },
               "icon": "lucide-folder-closed",
               "title": "文件列表"
+            }
+          },
+          {
+            "id": "a3c9b7bfb45d7e6c",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "标签"
             }
           },
           {
@@ -101,7 +116,8 @@
               "title": "Source Control"
             }
           }
-        ]
+        ],
+        "currentTab": 4
       }
     ],
     "direction": "horizontal",
@@ -149,35 +165,22 @@
             }
           },
           {
-            "id": "a3c9b7bfb45d7e6c",
-            "type": "leaf",
-            "state": {
-              "type": "tag",
-              "state": {
-                "sortOrder": "frequency",
-                "useHierarchy": true
-              },
-              "icon": "lucide-tags",
-              "title": "标签"
-            }
-          },
-          {
             "id": "331ffe51eb5b51fc",
             "type": "leaf",
             "state": {
               "type": "outline",
               "state": {
-                "file": "Home.md",
+                "file": "Other/说明/仓库文件结构.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Home 的大纲"
+              "title": "仓库文件结构 的大纲"
             }
           }
         ],
-        "currentTab": 3
+        "currentTab": 2
       }
     ],
     "direction": "horizontal",
@@ -186,20 +189,20 @@
   },
   "left-ribbon": {
     "hiddenItems": {
-      "obsidian-git:Open Git source control": true,
       "graph:查看关系图谱": false,
       "templates:插入模板": false,
       "switcher:打开快速切换": false,
       "command-palette:打开命令面板": false,
       "templater-obsidian:Templater": false,
       "obsidian-matrix:Obsidian Matrix": false,
-      "quickadd:QuickAdd": false
+      "quickadd:QuickAdd": false,
+      "obsidian-git:Open Git source control": false
     }
   },
-  "active": "effea41cd7a9449e",
+  "active": "932006dc4492760c",
   "lastOpenFiles": [
-    "Other/说明/tikz绘图标准.md",
     "Home.md",
+    "Other/说明/tikz绘图标准.md",
     "_assets_/todo/数一真题问题清单.md",
     "Other/例题/高数1真题/数一2010.md",
     "Other/例题/高数1真题/数一2024.md",
