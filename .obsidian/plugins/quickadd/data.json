@@ -1,0 +1,431 @@
+{
+  "choices": [
+    {
+      "id": "d915a3d5-93a0-4632-bbb6-0e81fb709b41",
+      "name": "Math-LaTeX2MD",
+      "type": "Macro",
+      "command": false,
+      "macroId": "84921720-54f0-4c9b-a5ed-d5f3d748a83f"
+    },
+    {
+      "id": "42f0beaf-d0a6-4290-a294-fe6fa7102728",
+      "name": "Math-DelMultiEnter",
+      "type": "Macro",
+      "command": false,
+      "macroId": "5faa68ab-ebea-449e-94e2-6c0bdabe046f"
+    },
+    {
+      "id": "fad1ce7d-b8b7-4299-9e3c-6b4351f5660c",
+      "name": "Math-DelMathSymbol",
+      "type": "Capture",
+      "command": false,
+      "appendLink": false,
+      "captureTo": "",
+      "captureToActiveFile": true,
+      "createFileIfItDoesntExist": {
+        "enabled": false,
+        "createWithTemplate": false,
+        "template": ""
+      },
+      "format": {
+        "enabled": true,
+        "format": "```js quickadd\n/**\n * 通用文本处理框架\n * @param {Function} transformFunction - 传入的文本转换函数，接收选中的文本并返回处理后的文本\n */\nasync function processSelectedText(transformFunction) {\n    const activeFile = app.workspace.getActiveFile();\n    if (!activeFile) {\n        new Notice(\"No file is currently open.\");\n        return;\n    }\n\n    // 允许的文件类型\n    const validExtensions = [\"md\", \"canvas\"];\n    if (!validExtensions.includes(activeFile.extension)) {\n        new Notice(\"The active file is not a Markdown or Canvas file.\");\n        return;\n    }\n\n    // 获取当前活动的编辑器\n    const editor = app.workspace.activeEditor?.editor;\n    if (!editor) {\n        new Notice(\"No active editor found.\");\n        return;\n    }\n\n    // 获取当前选中的文本\n    const selection = editor.getSelection();\n    if (!selection) {\n        new Notice(\"No text is selected.\");\n        return;\n    }\n\n    // 应用传入的文本转换逻辑\n    const modifiedText = transformFunction(selection);\n    \n    // 替换选中的文本\n    editor.replaceSelection(modifiedText);\n    new Notice(\"Text transformation completed.\");\n}\n\nprocessSelectedText((selection) => {\n    return selection.replace(/\\n{2,}(?!\\n*\\|)/g, '\\n'); \n});\n```"
+      },
+      "insertAfter": {
+        "enabled": false,
+        "after": "",
+        "insertAtEnd": false,
+        "considerSubsections": false,
+        "createIfNotFound": false,
+        "createIfNotFoundLocation": "top"
+      },
+      "prepend": false,
+      "task": false,
+      "openFileInNewTab": {
+        "enabled": false,
+        "direction": "vertical",
+        "focus": true
+      },
+      "openFile": false,
+      "openFileInMode": "default"
+    },
+    {
+      "id": "f1306993-3146-49f1-b237-beea8c67c1ad",
+      "name": "Math-Format",
+      "type": "Macro",
+      "command": true,
+      "macroId": "741c56f6-936a-43a8-90e0-f3181f2ef166"
+    },
+    {
+      "id": "80076b43-b32d-4282-95a4-13ac78e687f2",
+      "name": "Math-MathTextSplit",
+      "type": "Macro",
+      "command": false,
+      "macroId": "eb1c9618-b6cc-44b5-8c7c-78a65621c894"
+    },
+    {
+      "id": "19626909-c9b6-4f37-a974-6715be1c2212",
+      "name": "Math-AddTextForUnicode",
+      "type": "Macro",
+      "command": false,
+      "macroId": "58a4d928-ca46-40fa-af37-2dc25d291155"
+    },
+    {
+      "id": "507941da-1694-480b-b1fe-82f8e0804838",
+      "name": "PunctuationMarkConvert",
+      "type": "Capture",
+      "command": false,
+      "appendLink": false,
+      "captureTo": "",
+      "captureToActiveFile": true,
+      "createFileIfItDoesntExist": {
+        "enabled": false,
+        "createWithTemplate": false,
+        "template": ""
+      },
+      "format": {
+        "enabled": true,
+        "format": "```js quickadd\n// QuickAdd脚本: 转换中文全角标点符号为半角符号加空格\n/**\n * 东工过去问专用文本处理：在数学公式中将中文圆角符号替换为英文符号\n * 本脚本针对选中文本中的数学模式（$...$）进行符号替换\n */\nasync function processSelectedText(transformFunction) {\n    const activeFile = app.workspace.getActiveFile();\n    if (!activeFile) {\n        new Notice(\"No file is currently open.\");\n        return;\n    }\n    const validExtensions = [\"md\", \"canvas\"];\n    if (!validExtensions.includes(activeFile.extension)) {\n        new Notice(\"The active file is not a Markdown or Canvas file.\");\n        return;\n    }\n    const editor = app.workspace.activeEditor?.editor;\n    if (!editor) {\n        new Notice(\"No active editor found.\");\n        return;\n    }\n    const selection = editor.getSelection();\n    if (!selection) {\n        new Notice(\"No text is selected.\");\n        return;\n    }\n    const modifiedText = transformFunction(selection);\n    editor.replaceSelection(modifiedText);\n    new Notice(\"Text transformation completed.\");\n}\n\nprocessSelectedText((selection) => {\n    // 对数学模式部分（$...$）进行处理\n    return selection.replace(/\\$(.+?)\\$/gs, (match, content) => {\n        // 将中文圆角括号和中文逗号、句号替换为英文符号\n        let newContent = content\n            .replace(/，/g, \", \")\n            .replace(/。/g, \". \")\n            .replace(/；/g, \"; \")\n            .replace(/（/g, \" (\")\n            .replace(/）/g, \") \")\n            .replace(/：/g, \": \")\n            .replace(/“/g, ' \"')\n            .replace(/”/g, '\" ');\n        return `$${newContent}$`;\n    });\n});\n```"
+      },
+      "insertAfter": {
+        "enabled": false,
+        "after": "",
+        "insertAtEnd": false,
+        "considerSubsections": false,
+        "createIfNotFound": false,
+        "createIfNotFoundLocation": "top"
+      },
+      "prepend": false,
+      "task": false,
+      "openFileInNewTab": {
+        "enabled": false,
+        "direction": "vertical",
+        "focus": true
+      },
+      "openFile": false,
+      "openFileInMode": "default"
+    },
+    {
+      "id": "d966e381-49e5-49fe-bee4-df3958625158",
+      "name": "Wiki-DeleteURL",
+      "type": "Capture",
+      "command": false,
+      "appendLink": false,
+      "captureTo": "",
+      "captureToActiveFile": true,
+      "createFileIfItDoesntExist": {
+        "enabled": false,
+        "createWithTemplate": false,
+        "template": ""
+      },
+      "format": {
+        "enabled": true,
+        "format": "```js quickadd\nconst activeFile = app.workspace.getActiveFile();\n\nif (!activeFile) {\n    new Notice(\"No active file found\");\n    return;\n}\n\n// 检查文件扩展名是否为md\nif (activeFile.extension !== \"md\") {\n\tnew Notice(\"The active file is not a Markdown file.\");\n\treturn;\n}\nconst processLinks = (content) => {\n    // 使用正则表达式去除超链接，只保留文本\n    return content.replace(/\\[([^\\]]+)\\]\\([^)]+\\)/g, '$1');\n};\n\nconst main = async () => {\n    try {\n        // 获取当前活动文件的内容\n        const fileContent = await app.vault.read(activeFile);\n\n        // 处理内容，去除超链接\n        const processedContent = processLinks(fileContent);\n\n        // 将处理后的内容写回文件\n        await app.vault.modify(activeFile, processedContent);\n\n        new Notice(\"Links removed successfully\");\n    } catch (error) {\n        console.error(\"Error processing links:\", error);\n        new Notice(\"Error processing links\");\n    }\n};\n\nmain();\n\n```"
+      },
+      "insertAfter": {
+        "enabled": false,
+        "after": "",
+        "insertAtEnd": false,
+        "considerSubsections": false,
+        "createIfNotFound": false,
+        "createIfNotFoundLocation": "top"
+      },
+      "prepend": false,
+      "task": false,
+      "openFileInNewTab": {
+        "enabled": false,
+        "direction": "vertical",
+        "focus": true
+      },
+      "openFile": false,
+      "openFileInMode": "default"
+    },
+    {
+      "id": "ff21172e-79da-43cc-ab14-90aebfd99999",
+      "name": "Wiki-FormulaConvert",
+      "type": "Capture",
+      "command": false,
+      "appendLink": false,
+      "captureTo": "",
+      "captureToActiveFile": true,
+      "createFileIfItDoesntExist": {
+        "enabled": false,
+        "createWithTemplate": false,
+        "template": ""
+      },
+      "format": {
+        "enabled": true,
+        "format": "```js quickadd\nconst activeFile = app.workspace.getActiveFile();\n\nif (!activeFile) {\n    new Notice(\"No active file found\");\n    return;\n}\n\n// 检查文件扩展名是否为md\nif (activeFile.extension !== \"md\") {\n    new Notice(\"The active file is not a Markdown file.\");\n    return;\n}\n\n// 使用正则表达式去除单符号行（仅在\\displaystyle公式前面），并提取和转换\\displaystyle公式部分\nconst processContent = (content) => {\n    // 先匹配 \\displaystyle 结构，同时往前查找多余单符号行和前一个换行符\n    const processedContent = content.replace(/(?:\\n\\s*[A-Za-z0-9()\\[\\]{}+\\-*/%^|\\\\]+\\s*)*\\n\\s*\\{\\s*\\\\displaystyle\\s*([^{}]+(?:\\{[^{}]*\\}[^{}]*)*)\\s*\\}/g, '$$$1$');\n\n    return processedContent;\n};\n\nconst main = async () => {\n    try {\n        // 获取当前活动文件的内容\n        const fileContent = await app.vault.read(activeFile);\n\n        // 处理内容，删除单符号行和多余空行，并转换公式\n        const processedContent = processContent(fileContent);\n\n        // 将处理后的内容写回文件\n        await app.vault.modify(activeFile, processedContent);\n\n        new Notice(\"Formulas converted and single lines with preceding newlines removed successfully\");\n    } catch (error) {\n        console.error(\"Error processing content:\", error);\n        new Notice(\"Error processing content\");\n    }\n};\n\nmain();\n\n```"
+      },
+      "insertAfter": {
+        "enabled": false,
+        "after": "",
+        "insertAtEnd": false,
+        "considerSubsections": false,
+        "createIfNotFound": false,
+        "createIfNotFoundLocation": "top"
+      },
+      "prepend": false,
+      "task": false,
+      "openFileInNewTab": {
+        "enabled": false,
+        "direction": "vertical",
+        "focus": true
+      },
+      "openFile": false,
+      "openFileInMode": "default"
+    },
+    {
+      "id": "0a43d17c-bff2-4d01-9280-5c8c48a6b0f4",
+      "name": "dot-transparent",
+      "type": "Capture",
+      "command": false,
+      "appendLink": false,
+      "captureTo": "",
+      "captureToActiveFile": true,
+      "createFileIfItDoesntExist": {
+        "enabled": false,
+        "createWithTemplate": false,
+        "template": ""
+      },
+      "format": {
+        "enabled": true,
+        "format": "```js quickadd\nconst activeFile = app.workspace.getActiveFile();\n\nif (!activeFile) {\n    new Notice(\"No active file found\");\n    return;\n}\n\n// 检查文件扩展名是否为 md\nif (activeFile.extension !== \"md\") {\n    new Notice(\"The active file is not a Markdown file.\");\n    return;\n}\n\n// 查找并处理 DOT 代码块\nconst processDOTBlocks = (content) => {\n    // 匹配 DOT 代码块的正则表达式\n    const dotBlockRegex = /\\`\\`\\`dot\\n([\\s\\S]*?)\\`\\`\\`/g;\n    return content.replace(dotBlockRegex, (match, dotContent) => {\n        // 检查是否已经存在 bgcolor=\"transparent\";\n        if (dotContent.includes('bgcolor=\"transparent\";')) {\n            return match; // 如果已经存在，直接返回原内容\n        }\n\n        // 在大括号内的首行插入 bgcolor=\"transparent\";\n        const processedDotContent = dotContent.replace(/\\{([\\s\\S]*?)\\}/g, (block) => {\n            return block.replace(/\\{/, '{\\n    bgcolor=\"transparent\";');\n        });\n\n        // 返回处理后的 DOT 代码块\n        return `\\`\\`\\`dot\\n${processedDotContent}\\`\\`\\`\\n`;\n    });\n};\n\n// 获取当前活动文件的内容\nconst fileContent = await app.vault.read(activeFile);\n\n// 处理内容，查找并处理 DOT 代码块\nconst processedContent = processDOTBlocks(fileContent);\n\n// 将处理后的内容写回文件\nawait app.vault.modify(activeFile, processedContent);\n\nnew Notice(\"DOT blocks processed successfully\");\n```"
+      },
+      "insertAfter": {
+        "enabled": false,
+        "after": "",
+        "insertAtEnd": false,
+        "considerSubsections": false,
+        "createIfNotFound": false,
+        "createIfNotFoundLocation": "top"
+      },
+      "prepend": false,
+      "task": false,
+      "openFileInNewTab": {
+        "enabled": false,
+        "direction": "vertical",
+        "focus": true
+      },
+      "openFile": false,
+      "openFileInMode": "default"
+    },
+    {
+      "id": "9593df51-d6b7-48d1-b6f0-241e6c316971",
+      "name": "DelURL",
+      "type": "Macro",
+      "command": false,
+      "macroId": "899c4f28-94fd-4018-8c45-4667fb3a1af4"
+    }
+  ],
+  "macros": [
+    {
+      "name": "Macro-Format",
+      "id": "741c56f6-936a-43a8-90e0-f3181f2ef166",
+      "commands": [
+        {
+          "name": "Math-DeleteMultiEnter",
+          "type": "UserScript",
+          "id": "fec22662-1933-4c9e-ac5b-a1e6756b0c7d",
+          "path": "_assets_/QuickAdd/Math-DeleteMultiEnter.js",
+          "settings": {}
+        },
+        {
+          "name": "Wait",
+          "type": "Wait",
+          "id": "0c86f55f-0201-469f-b530-5425ef0faa69",
+          "time": 100
+        },
+        {
+          "name": "Math-MathTextSplit",
+          "type": "UserScript",
+          "id": "319ca98c-1703-47cc-8604-e9b4158e448e",
+          "path": "_assets_/QuickAdd/Math-MathTextSplit.js",
+          "settings": {}
+        },
+        {
+          "name": "Wait",
+          "type": "Wait",
+          "id": "b0a71ced-7310-4707-80ea-b6e8f7548d09",
+          "time": 100
+        },
+        {
+          "name": "Math-AddTextForUnicode",
+          "type": "UserScript",
+          "id": "9ef56c6b-b32d-41fa-af67-60adc7c9a421",
+          "path": "_assets_/QuickAdd/Math-AddTextForUnicode.js",
+          "settings": {}
+        }
+      ],
+      "runOnStartup": false
+    },
+    {
+      "name": "Macro-高数1真题处理",
+      "id": "8a56c66a-90c6-4dd0-a4d2-26181368d551",
+      "commands": [
+        {
+          "name": "Math-DeleteMultiEnter",
+          "type": "UserScript",
+          "id": "73b2368c-3543-446e-b35f-e41d991b5200",
+          "path": "_assets_/QuickAdd/Math-DeleteMultiEnter.js",
+          "settings": {}
+        },
+        {
+          "name": "Wait",
+          "type": "Wait",
+          "id": "aaac2a1f-e661-493c-a30a-b3cd65a2c15e",
+          "time": 300
+        },
+        {
+          "name": "Math-MathTextSplit",
+          "type": "UserScript",
+          "id": "1a1c78ca-79dc-4d20-b4a6-02ed2dcaa099",
+          "path": "_assets_/QuickAdd/Math-MathTextSplit.js",
+          "settings": {}
+        },
+        {
+          "name": "Wait",
+          "type": "Wait",
+          "id": "b16341e8-5550-4a05-8418-1c92519fbd69",
+          "time": 300
+        },
+        {
+          "name": "Math-AddTextForUnicode",
+          "type": "UserScript",
+          "id": "e6ba6b11-f66d-4c32-b1d1-fce0bb74415a",
+          "path": "_assets_/QuickAdd/Math-AddTextForUnicode.js",
+          "settings": {}
+        }
+      ],
+      "runOnStartup": false
+    },
+    {
+      "name": "Macro-DelMultiEnter",
+      "id": "5faa68ab-ebea-449e-94e2-6c0bdabe046f",
+      "commands": [
+        {
+          "name": "DeleteMultiEnter",
+          "type": "UserScript",
+          "id": "462b238c-39cd-4282-95e1-d477f39c7fc6",
+          "path": "_assets_/QuickAdd/DeleteMultiEnter.js",
+          "settings": {}
+        }
+      ],
+      "runOnStartup": false
+    },
+    {
+      "name": "Macro-AddTextForUnicode",
+      "id": "58a4d928-ca46-40fa-af37-2dc25d291155",
+      "commands": [
+        {
+          "name": "Math-AddTextForUnicode",
+          "type": "UserScript",
+          "id": "3ddd6758-a801-41c8-8ce1-340cf97d6d66",
+          "path": "_assets_/QuickAdd/Math-AddTextForUnicode.js",
+          "settings": {}
+        }
+      ],
+      "runOnStartup": false
+    },
+    {
+      "name": "Macro-MathTextSplit",
+      "id": "eb1c9618-b6cc-44b5-8c7c-78a65621c894",
+      "commands": [
+        {
+          "name": "Math-MathTextSplit",
+          "type": "UserScript",
+          "id": "af5deaae-9ef0-4327-9214-43027f0f2fbe",
+          "path": "_assets_/QuickAdd/Math-MathTextSplit.js",
+          "settings": {}
+        }
+      ],
+      "runOnStartup": false
+    },
+    {
+      "name": "Macro-LaTeX2MD",
+      "id": "84921720-54f0-4c9b-a5ed-d5f3d748a83f",
+      "commands": [
+        {
+          "name": "Math-LaTeX2MD",
+          "type": "UserScript",
+          "id": "80fbca48-b417-4799-b8e2-da2e6a0ca811",
+          "path": "_assets_/QuickAdd/Math-LaTeX2MD.js",
+          "settings": {}
+        }
+      ],
+      "runOnStartup": false
+    },
+    {
+      "name": "Macro-DelURL",
+      "id": "899c4f28-94fd-4018-8c45-4667fb3a1af4",
+      "commands": [
+        {
+          "name": "Math-DeleteURL",
+          "type": "UserScript",
+          "id": "eb3767a3-069a-41ab-92f1-b6c0493cdcc3",
+          "path": "_assets_/QuickAdd/Math-DeleteURL.js",
+          "settings": {}
+        }
+      ],
+      "runOnStartup": false
+    }
+  ],
+  "inputPrompt": "single-line",
+  "devMode": false,
+  "templateFolderPath": "@assets/QuickAdd",
+  "announceUpdates": true,
+  "version": "1.11.5",
+  "disableOnlineFeatures": true,
+  "enableRibbonIcon": true,
+  "ai": {
+    "defaultModel": "Ask me",
+    "defaultSystemPrompt": "As an AI assistant within Obsidian, your primary goal is to help users manage their ideas and knowledge more effectively. Format your responses using Markdown syntax. Please use the [[Obsidian]] link format. You can write aliases for the links by writing [[Obsidian|the alias after the pipe symbol]]. To use mathematical notation, use LaTeX syntax. LaTeX syntax for larger equations should be on separate lines, surrounded with double dollar signs ($$). You can also inline math expressions by wrapping it in $ symbols. For example, use $$w_{ij}^{\text{new}}:=w_{ij}^{\text{current}}+etacdotdelta_jcdot x_{ij}$$ on a separate line, but you can write \"($eta$ = learning rate, $delta_j$ = error term, $x_{ij}$ = input)\" inline.",
+    "promptTemplatesFolderPath": "",
+    "showAssistant": true,
+    "providers": [
+      {
+        "name": "OpenAI",
+        "endpoint": "https://api.openai.com/v1",
+        "apiKey": "",
+        "models": [
+          {
+            "name": "gpt-3.5-turbo",
+            "maxTokens": 4096
+          },
+          {
+            "name": "gpt-3.5-turbo-16k",
+            "maxTokens": 16384
+          },
+          {
+            "name": "gpt-3.5-turbo-1106",
+            "maxTokens": 16385
+          },
+          {
+            "name": "gpt-4",
+            "maxTokens": 8192
+          },
+          {
+            "name": "gpt-4-32k",
+            "maxTokens": 32768
+          },
+          {
+            "name": "gpt-4-1106-preview",
+            "maxTokens": 128000
+          },
+          {
+            "name": "text-davinci-003",
+            "maxTokens": 4096
+          }
+        ]
+      }
+    ]
+  },
+  "migrations": {
+    "migrateToMacroIDFromEmbeddedMacro": true,
+    "useQuickAddTemplateFolder": true,
+    "incrementFileNameSettingMoveToDefaultBehavior": true,
+    "mutualExclusionInsertAfterAndWriteToBottomOfFile": true,
+    "setVersionAfterUpdateModalRelease": true,
+    "addDefaultAIProviders": true
+  }
+}

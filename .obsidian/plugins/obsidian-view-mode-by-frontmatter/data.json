@@ -1,0 +1,29 @@
+{
+  "debounceTimeout": 300,
+  "ignoreOpenFiles": false,
+  "ignoreForceViewAll": false,
+  "folders": [
+    {
+      "folder": "_assert_",
+      "viewMode": "obsidianUIMode: preview"
+    }
+  ],
+  "files": [
+    {
+      "filePattern": "^-.*-$",
+      "viewMode": "obsidianUIMode: preview"
+    },
+    {
+      "filePattern": "Home",
+      "viewMode": "obsidianUIMode: preview"
+    },
+    {
+      "filePattern": "总览",
+      "viewMode": "obsidianUIMode: preview"
+    },
+    {
+      "filePattern": "^=.*=$",
+      "viewMode": "obsidianUIMode: preview"
+    }
+  ]
+}
